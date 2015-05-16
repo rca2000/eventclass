@@ -74,3 +74,230 @@ Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.
 Processing by Rails::WelcomeController#index as HTML
   Rendered /usr/local/rvm/gems/ruby-2.1.5@rails4/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (0.1ms)
 Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+  [1m[36m (85.8ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (111.6ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateBlogs (20150516004004)
+  [1m[35m (34.5ms)[0m  CREATE TABLE `blogs` (`id` int(11) auto_increment PRIMARY KEY, `name` varchar(255), `about` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (3.1ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20150516004004')
+  [1m[36m (10.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (5.5ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'events'
+  AND fk.table_name = 'blogs'
+[0m
+  [1m[35m (0.3ms)[0m  SHOW CREATE TABLE `blogs`
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreatePosts (20150516010708)
+  [1m[35m (33.7ms)[0m  CREATE TABLE `posts` (`id` int(11) auto_increment PRIMARY KEY, `title` varchar(255), `content` varchar(255), `blog_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_posts_on_blog_id`  (`blog_id`) ) ENGINE=InnoDB
+  [1m[36m (103.3ms)[0m  [1mALTER TABLE `posts` ADD CONSTRAINT `fk_rails_dda555d01f`
+FOREIGN KEY (`blog_id`)
+  REFERENCES `blogs` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (2.1ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20150516010708')[0m
+  [1m[35m (10.8ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'events'
+  AND fk.table_name = 'blogs'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `blogs`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'events'
+  AND fk.table_name = 'posts'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `posts`[0m
+
+
+Started GET "/blogs/1" for 200.0.118.173 at 2015-05-16 01:34:30 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mBlog Load (6.1ms)[0m  SELECT  `blogs`.* FROM `blogs` WHERE `blogs`.`id` = 1 LIMIT 1
+Completed 404 Not Found in 388ms (ActiveRecord: 7.9ms)
+
+ActiveRecord::RecordNotFound (Couldn't find Blog with 'id'=1):
+  app/controllers/blogs_controller.rb:67:in `set_blog'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.1.5@rails4/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (12.0ms)
+  Rendered /usr/local/rvm/gems/ruby-2.1.5@rails4/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (8.4ms)
+  Rendered /usr/local/rvm/gems/ruby-2.1.5@rails4/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (9.5ms)
+  Rendered /usr/local/rvm/gems/ruby-2.1.5@rails4/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (72.8ms)
+
+
+Started GET "/blogs" for 200.0.118.173 at 2015-05-16 01:34:46 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#index as HTML
+  [1m[36mBlog Load (0.5ms)[0m  [1mSELECT `blogs`.* FROM `blogs`[0m
+  Rendered blogs/index.html.erb within layouts/application (18.6ms)
+Completed 200 OK in 3962ms (Views: 3960.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/blogs.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/posts.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/scaffolds.self-ade00adcde1249df4241695c2aae67a1990b158fa2c1ae5aedad5425292b1a62.css?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/posts.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/blogs.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 200.0.118.173 at 2015-05-16 01:34:51 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/blogs/new" for 200.0.118.173 at 2015-05-16 01:34:55 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#new as HTML
+  Rendered blogs/_form.html.erb (87.2ms)
+  Rendered blogs/new.html.erb within layouts/application (92.6ms)
+Completed 200 OK in 145ms (Views: 139.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/blogs" for 200.0.118.173 at 2015-05-16 01:35:18 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"KRkeAD17iIw/dpEFryz/yRxMBaqFMNcB63wXMWDkLSkIhhpOOl/YAD0GySuY1Ir4vGzfXLm+KsjYQe1BGi3iWg==", "blog"=>{"name"=>"Blog 1", "about"=>"Sobre el blog"}, "commit"=>"Create Blog"}
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (11.0ms)[0m  [1mINSERT INTO `blogs` (`name`, `about`, `created_at`, `updated_at`) VALUES ('Blog 1', 'Sobre el blog', '2015-05-16 01:35:18', '2015-05-16 01:35:18')[0m
+  [1m[35m (8.2ms)[0m  COMMIT
+Redirected to https://eventclass-rca2000.c9.io/blogs/1
+Completed 302 Found in 27ms (ActiveRecord: 19.3ms)
+
+
+Started GET "/blogs/1" for 200.0.118.173 at 2015-05-16 01:35:18 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBlog Load (0.4ms)[0m  [1mSELECT  `blogs`.* FROM `blogs` WHERE `blogs`.`id` = 1 LIMIT 1[0m
+  Rendered blogs/show.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 64ms (Views: 54.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/blogs" for 200.0.118.173 at 2015-05-16 01:35:22 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#index as HTML
+  [1m[35mBlog Load (0.4ms)[0m  SELECT `blogs`.* FROM `blogs`
+  Rendered blogs/index.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 52ms (Views: 50.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/blogs/1/edit" for 200.0.118.173 at 2015-05-16 01:36:18 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBlog Load (0.5ms)[0m  [1mSELECT  `blogs`.* FROM `blogs` WHERE `blogs`.`id` = 1 LIMIT 1[0m
+  Rendered blogs/_form.html.erb (2.5ms)
+  Rendered blogs/edit.html.erb within layouts/application (4.8ms)
+Completed 200 OK in 65ms (Views: 62.1ms | ActiveRecord: 0.5ms)
+
+
+Started PATCH "/blogs/1" for 200.0.118.173 at 2015-05-16 01:36:23 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"s3DgeOPUUlRQGJnjH9yf5TxtBMALXSGl9g1zk6GV+FaS7+Q25PAC2FJowc0oJOrUnE3eNjfT3GzFMInj21w3JQ==", "blog"=>{"name"=>"Blog 1", "about"=>"Sobre el blog 1"}, "commit"=>"Update Blog", "id"=>"1"}
+  [1m[35mBlog Load (0.5ms)[0m  SELECT  `blogs`.* FROM `blogs` WHERE `blogs`.`id` = 1 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (11.4ms)[0m  UPDATE `blogs` SET `about` = 'Sobre el blog 1', `updated_at` = '2015-05-16 01:36:23' WHERE `blogs`.`id` = 1
+  [1m[36m (27.5ms)[0m  [1mCOMMIT[0m
+Redirected to https://eventclass-rca2000.c9.io/blogs/1
+Completed 302 Found in 49ms (ActiveRecord: 39.6ms)
+
+
+Started GET "/blogs/1" for 200.0.118.173 at 2015-05-16 01:36:23 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mBlog Load (0.6ms)[0m  SELECT  `blogs`.* FROM `blogs` WHERE `blogs`.`id` = 1 LIMIT 1
+  Rendered blogs/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 158ms (Views: 154.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/blogs" for 200.0.118.173 at 2015-05-16 01:36:26 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#index as HTML
+  [1m[36mBlog Load (0.4ms)[0m  [1mSELECT `blogs`.* FROM `blogs`[0m
+  Rendered blogs/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 73ms (Views: 69.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/blogs/new" for 200.0.118.173 at 2015-05-16 01:36:28 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#new as HTML
+  Rendered blogs/_form.html.erb (3.0ms)
+  Rendered blogs/new.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 66ms (Views: 64.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/blogs" for 200.0.118.173 at 2015-05-16 01:36:38 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"mCd/NmrjqCckcgpf86sjCX4MpqUKCUw2dIpwrTs2qVO5uHt4bcf4qyYCUnHEU1Y43ix8UzaHsf9Ht4rdQf9mIA==", "blog"=>{"name"=>"Blog 2", "about"=>"Sobre el blog 2"}, "commit"=>"Create Blog"}
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (4.0ms)[0m  [1mINSERT INTO `blogs` (`name`, `about`, `created_at`, `updated_at`) VALUES ('Blog 2', 'Sobre el blog 2', '2015-05-16 01:36:38', '2015-05-16 01:36:38')[0m
+  [1m[35m (11.6ms)[0m  COMMIT
+Redirected to https://eventclass-rca2000.c9.io/blogs/2
+Completed 302 Found in 24ms (ActiveRecord: 15.9ms)
+
+
+Started GET "/blogs/2" for 200.0.118.173 at 2015-05-16 01:36:38 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mBlog Load (0.3ms)[0m  [1mSELECT  `blogs`.* FROM `blogs` WHERE `blogs`.`id` = 2 LIMIT 1[0m
+  Rendered blogs/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 69ms (Views: 64.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/blogs" for 200.0.118.173 at 2015-05-16 01:36:41 +0000
+Cannot render console from 200.0.118.173! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BlogsController#index as HTML
+  [1m[35mBlog Load (0.4ms)[0m  SELECT `blogs`.* FROM `blogs`
+  Rendered blogs/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 54ms (Views: 52.4ms | ActiveRecord: 0.4ms)
